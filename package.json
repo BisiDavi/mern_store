@@ -6,11 +6,11 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "node backend/server",
-    "server": "nodemon backend/server",
+    "start": "node server",
+    "server": "nodemon server",
     "dev": "yarn run server",
-    "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:import": "node seeder",
+    "data:destroy": "node seeder -d"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
