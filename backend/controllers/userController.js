@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
-import generateToken from '../utils';
-import User from '../models';
+import generateToken from '../utils/generateToken.js';
+import User from '../models/userModel.js';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/login
@@ -60,7 +60,6 @@ const registerUser = asyncHandler(async (req, res) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
-
 const getUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -73,7 +72,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not Found');
+    throw new Error('User not found');
   }
 });
 
@@ -89,6 +88,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     if (req.body.password) {
       user.password = req.body.password;
     }
+
     const updatedUser = await user.save();
 
     res.json({
@@ -142,7 +142,7 @@ const getUserById = asyncHandler(async (req, res) => {
 });
 
 // @desc    Update user
-// @route   PUT /api/usres/:id
+// @route   PUT /api/users/:id
 // @access  Private/Admin
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);

@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-import Order from '../models';
+import Order from '../models/orderModel.js';
 
 // @desc    Create new order
 // @route   POST /api/orders
@@ -10,14 +10,14 @@ const addOrderItems = asyncHandler(async (req, res) => {
     shippingAddress,
     paymentMethod,
     itemsPrice,
-    taskPrice,
+    taxPrice,
     shippingPrice,
     totalPrice
   } = req.body;
 
   if (orderItems && orderItems.length === 0) {
     res.status(400);
-    throw new Error('No ordered items');
+    throw new Error('No order items');
     return;
   } else {
     const order = new Order({
@@ -98,7 +98,7 @@ const updateOrderToDelivered = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get logged in user  orders
+// @desc    Get logged in user orders
 // @route   GET /api/orders/myorders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
@@ -109,7 +109,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin
-const getOrder = asyncHandler(async (req, res) => {
+const getOrders = asyncHandler(async (req, res) => {
   const orders = await Order.find({}).populate('user', 'id name');
   res.json(orders);
 });
@@ -120,5 +120,5 @@ export {
   updateOrderToPaid,
   updateOrderToDelivered,
   getMyOrders,
-  getOrder
+  getOrders
 };
