@@ -10,7 +10,8 @@
     "server": "nodemon server",
     "dev": "yarn run server",
     "data:import": "node seeder",
-    "data:destroy": "node seeder -d"
+    "data:destroy": "node seeder -d",
+    "heroku-postbuild": "yarn run data:import && yarn run start"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
