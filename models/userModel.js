@@ -20,6 +20,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       default: false
+    },
+    merchant: {
+      type: Boolean,
+      default: false
     }
   },
   {
