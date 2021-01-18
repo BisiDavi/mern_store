@@ -1,27 +1,27 @@
 import express from 'express';
 const router = express.Router();
 import {
-  authUser,
+  authMerchant,
   registerMerchant,
-  getUserProfile,
-  updateUserProfile,
-  getUsers,
-  deleteUser,
-  getUserById,
-  updateUser
+  getMerchantProfile,
+  updateMerchantProfile,
+  getMerchants,
+  deleteMerchant,
+  getMerchantById,
+  updateMerchant
 } from '../controllers/merchantController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.route('/').post(registerMerchant).get(protect, admin, getUsers);
-router.post('/login', authUser);
+router.route('/').post(registerMerchant).get(protect, admin, getMerchants);
+router.post('/login', authMerchant);
 router
   .route('/profile')
-  .get(protect, getUserProfile)
-  .put(protect, updateUserProfile);
+  .get(protect, getMerchantProfile)
+  .put(protect, updateMerchantProfile);
 router
   .route('/:id')
-  .delete(protect, admin, deleteUser)
-  .get(protect, admin, getUserById)
-  .put(protect, admin, updateUser);
+  .delete(protect, admin, deleteMerchant)
+  .get(protect, admin, getMerchantById)
+  .put(protect, admin, updateMerchant);
 
 export default router;

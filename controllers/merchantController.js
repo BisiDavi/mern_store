@@ -1,23 +1,22 @@
 import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
-import User from '../models/userModel.js';
 import Merchant from '../models/merchantModel.js';
 
-// @desc    Auth user & get token
-// @route   POST /api/users/login
+// @desc    Auth merchant & get token
+// @route   POST /api/merchant/login
 // @access  Public
-const authUser = asyncHandler(async (req, res) => {
+const authMerchant = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
+  const merchant = await Merchant.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
+  if (merchant && (await merchant.matchPassword(password))) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id)
+      _id: merchant._id,
+      name: merchant.name,
+      email: merchant.email,
+      isAdmin: merchant.isAdmin,
+      token: generateToken(merchant._id)
     });
   } else {
     res.status(401);
@@ -38,7 +37,7 @@ const registerMerchant = asyncHandler(async (req, res) => {
     throw new Error('Merchant already exists');
   }
 
-  const merchant = await User.create({
+  const merchant = await Merchant.create({
     name,
     email,
     businessName,
@@ -48,53 +47,53 @@ const registerMerchant = asyncHandler(async (req, res) => {
 
   if (merchant) {
     res.status(201).json({
-      _id: user._id,
+      _id: merchant._id,
       name: merchant.name,
       email: merchant.email,
       businessName: merchant.businessName,
       businessAddress: merchant.businessAddress,
       isAdmin: merchant.isAdmin,
-      token: generateToken(user._id)
+      token: generateToken(merchant._id)
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error('Invalid merchant data');
   }
 });
 
-// @desc    Get user profile
-// @route   GET /api/users/profile
+// @desc    Get merchant profile
+// @route   GET /api/merchant/profile
 // @access  Private
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const merchant = await Merchant.findById(req.merchant._id);
 
-  if (user) {
+  if (merchant) {
     res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin
+      _id: merchant._id,
+      name: merchant.name,
+      email: merchant.email,
+      isAdmin: merchant.isAdmin
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Merchant not found');
   }
 });
 
-// @desc    Update user profile
-// @route   PUT /api/users/profile
+// @desc    Update merchant profile
+// @route   PUT /api/merchant/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
+  const merchant = await Merchant.findById(req.merchant._id);
 
-  if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
+  if (merchant) {
+    merchant.name = req.body.name || merchant.name;
+    merchant.email = req.body.email || merchant.email;
     if (req.body.password) {
-      user.password = req.body.password;
+      merchant.password = req.body.password;
     }
 
-    const updatedUser = await user.save();
+    const updatedUser = await merchant.save();
 
     res.json({
       _id: updatedUser._id,
@@ -105,59 +104,59 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Merchant not found');
   }
 });
 
-// @desc    Get all users
-// @route   GET /api/users
+// @desc    Get all merchant
+// @route   GET /api/merchant
 // @access  Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
-  res.json(users);
+  const merchant = await Merchant.find({});
+  res.json(merchant);
 });
 
-// @desc    Delete user
-// @route   DELETE /api/users/:id
+// @desc    Delete merchant
+// @route   DELETE /api/merchant/:id
 // @access  Private/Admin
-const deleteUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+const deleteMerchant = asyncHandler(async (req, res) => {
+  const merchant = await Merchant.findById(req.params.id);
 
-  if (user) {
-    await user.remove();
-    res.json({ message: 'User removed' });
+  if (merchant) {
+    await merchant.remove();
+    res.json({ message: 'Merchant removed' });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Merchant not found');
   }
 });
 
-// @desc    Get user by ID
-// @route   GET /api/users/:id
+// @desc    Get merchant by ID
+// @route   GET /api/merchant/:id
 // @access  Private/Admin
-const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select('-password');
+const getMerchantById = asyncHandler(async (req, res) => {
+  const merchant = await Merchant.findById(req.params.id).select('-password');
 
-  if (user) {
-    res.json(user);
+  if (merchant) {
+    res.json(merchant);
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Merchant not found');
   }
 });
 
-// @desc    Update user
-// @route   PUT /api/users/:id
+// @desc    Update merchant
+// @route   PUT /api/merchant/:id
 // @access  Private/Admin
-const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+const updateMerchant = asyncHandler(async (req, res) => {
+  const merchant = await Merchant.findById(req.params.id);
 
-  if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.isAdmin = req.body.isAdmin;
+  if (merchant) {
+    merchant.name = req.body.name || merchant.name;
+    merchant.email = req.body.email || merchant.email;
+    merchant.isAdmin = req.body.isAdmin;
 
-    const updatedUser = await user.save();
+    const updatedUser = await merchant.save();
 
     res.json({
       _id: updatedUser._id,
@@ -167,17 +166,17 @@ const updateUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error('Merchant not found');
   }
 });
 
 export {
-  authUser,
+  authMerchant,
   registerMerchant,
-  getUserProfile,
-  updateUserProfile,
-  getUsers,
-  deleteUser,
-  getUserById,
-  updateUser
+  getMerchantProfile,
+  updateMerchantProfile,
+  getMerchants,
+  deleteMerchant,
+  getMerchantById,
+  updateMerchant
 };
