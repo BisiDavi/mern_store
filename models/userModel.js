@@ -24,6 +24,10 @@ const userSchema = mongoose.Schema(
     merchant: {
       type: Boolean,
       default: false
+    },
+    merchantApproved: {
+      type: Boolean,
+      default: false
     }
   },
   {
