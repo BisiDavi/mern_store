@@ -64,7 +64,7 @@ const registerMerchant = asyncHandler(async (req, res) => {
 // @desc    Get merchant profile
 // @route   GET /api/merchant/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
+const getMerchantProfile = asyncHandler(async (req, res) => {
   const merchant = await Merchant.findById(req.merchant._id);
 
   if (merchant) {
@@ -83,7 +83,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @desc    Update merchant profile
 // @route   PUT /api/merchant/profile
 // @access  Private
-const updateUserProfile = asyncHandler(async (req, res) => {
+const updateMerchantProfile = asyncHandler(async (req, res) => {
   const merchant = await Merchant.findById(req.merchant._id);
 
   if (merchant) {
@@ -111,7 +111,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 // @desc    Get all merchant
 // @route   GET /api/merchant
 // @access  Private/Admin
-const getUsers = asyncHandler(async (req, res) => {
+const getMerchants = asyncHandler(async (req, res) => {
   const merchant = await Merchant.find({});
   res.json(merchant);
 });
