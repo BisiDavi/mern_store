@@ -1,5 +1,5 @@
 import asyncHandler from 'express-async-handler';
-const dotenv = require('dotenv');
+import dotenv from 'dotenv'
 
 dotenv.config();
 
