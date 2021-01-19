@@ -9,10 +9,7 @@ dotenv.config();
 const merchantSubscription = asyncHandler(async (req, res) => {
   request(
     {
-      url: 'https://api.flutterwave.com/v3/payments',
-      headers: {
-        Authorization: `Bearer ${process.env.SECRETKEY}`
-      }
+      url: 'https://api.flutterwave.com/v3/payments'
     },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {
