@@ -3,6 +3,6 @@ const router = express.Router();
 import { merchantSubscription } from '../controllers/merchantController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
-router.post('/', protect, admin, merchantSubscription);
+router.route('/').post(protect, admin, merchantSubscription);
 
 export default router;
