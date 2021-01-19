@@ -1,8 +1,7 @@
 import asyncHandler from 'express-async-handler';
-import { config } from 'dotenv';
+const dotenv = require('dotenv');
 
-config();
-
+dotenv.config();
 
 // @desc    Get merchant profile
 // @route   GET /api/merchant/payments
