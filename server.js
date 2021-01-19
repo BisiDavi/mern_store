@@ -12,6 +12,7 @@ import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import merchantRoutes from './routes/merchantRoutes.js';
+import request from 'request';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
+
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -36,6 +38,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/merchant/payments', merchantRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
+
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));

@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import Flutterwave from 'flutterwave-node-v3';
 import open from 'open';
 import { v4 as uuidv4 } from 'uuid';
+import request from 'request';
 
 dotenv.config();
 
