@@ -29,7 +29,7 @@ app.use(express.json());
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/merchant', merchantRoutes);
+app.use('/api/payment', merchantRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/upload', uploadRoutes);
 
