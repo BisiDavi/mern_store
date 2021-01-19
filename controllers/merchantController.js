@@ -23,9 +23,20 @@ const merchantSubscription = asyncHandler(async (req, res) => {
   );
 });
 // @desc    Get merchant profile
-// @route   GET /api/merchant/makepayments
+// @route   GET /api/merchant/makepayments/card
 // @access  Private
 const makePayment = asyncHandler(async (req, res) => {
+  request(
+    {
+      url: 'https://api.flutterwave.com/v3/charges?type=card'
+    },
+    (error, response, body) => {
+      if (error || response.statusCode !== 200) {
+        return res.status(500).json({ type: 'error', message: err.message });
+      }
+      res.json(JSON.parse(body));
+    }
+  );
   const {
     card_number,
     cvv,

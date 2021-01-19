@@ -7,6 +7,6 @@ import {
 import { protect, admin } from '../middleware/authMiddleware.js';
 
 router.route('/').post(protect, admin, merchantSubscription);
-router.route('/').post(protect, admin, makePayment);
+router.route('/card').post(protect, admin, makePayment);
 
 export default router;
