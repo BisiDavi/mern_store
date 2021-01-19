@@ -13,7 +13,8 @@ dotenv.config();
 const merchantSubscription = asyncHandler(async (req, res) => {
   request(
     {
-      url: 'https://api.flutterwave.com/v3/payments'
+      url:
+        'https://cors-anywhere.herokuapp.com/https://api.flutterwave.com/v3/payments'
     },
     (error, response, body) => {
       if (error || response.statusCode !== 200) {

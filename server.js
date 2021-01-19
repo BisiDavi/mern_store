@@ -12,7 +12,6 @@ import userRoutes from './routes/userRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import merchantRoutes from './routes/merchantRoutes.js';
-import request from 'request';
 
 dotenv.config();
 
